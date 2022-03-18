@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+  
+  <div style="text-align: center;max-width: 600px;" class="shadow-lg p-3 mb-5 bg-body mx-auto rounded row">
+    <div class="col" style=" overflow-x: scroll;overflow-y: hidden;white-space: nowrap;">
+      {% for k in photos %}
+        <img src="{{ k.images.url }}" class="img-thumbnail">
+      {% endfor %}
+    </div>
+    <p></p>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Product Detail
+      </button>
+    </div>
+    <hr style="color:white;">
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <p>Product Name: {{ product.productName }}</p>
+        <p>Product Description: {{ product.productDescription }}</p>
+      </div>
+    </div>
+    
+  </div>
+  <div style="text-align: center; max-width: 600px;"   class="shadow-lg p-3 mb-5 bg-body rounded  mx-auto gap-2 ">
+    <div  style="text-align: center;">
+      
+      {% if not verification %}
+        <form action="verify/" method="post">
+          {% csrf_token %}
+          <h6 style="text-align: center;">Please Verify Your Product</h6>
+          <input type="hidden" value="{{ product.id }}" name="pid">
+          <div class="input-group mb-3 gap-2">
+            <input type="text" class="form-control" placeholder="Enter Product Code" name="code" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <button class="btn btn-outline-success" type="submit" id="button-addon1">Submit</button>
+          </div>
+        </form>
+        
+        
+        {% elif not register %}
+        <form action="register/" method="post">
+          {% csrf_token %}
+          <h6>Now Register Yourself</h6>
+          <input type="hidden" value="{{ product.id }}" name="pid">
+          <input type="text" class="form-control" placeholder="Enter Your Name" name="username" ><br>
+          <input type="text" class="form-control" placeholder="Enter Your City Name" name="city"><br>
+          <input type="text" class="form-control" placeholder="Enter Your Country Name" name="country"><br>
+          <button class="btn btn-outline-success" type="submit" >Submit</button>
+        </form>
+        
+      {% else %}
+        <div class="alert alert-success" role="alert">
+          You Successfully Registered
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  {% if messages %}
+    {% for message in messages %}
+      <div style="max-width: 600px;text-align: center;margin-left: auto;margin-right: auto;" class="alert alert-danger" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  
+  <div style="text-align: center; max-width: 600px;"   class="shadow-lg p-3 mb-5 bg-body rounded  mx-auto gap-2 ">
+    <div class="table-responsive-sm" style="max-height: 400px; overflow:auto; font-size: smaller;" >
+      <table class="table table-bordered caption-top"  >
+        <caption style="text-align: center;font-weight: bold;">All Ownership Record</caption>
+        <thead class="table-light">
+          <tr>
+            <th style="font-weight:bolder; ">Username</th>
+            <th style="font-weight:bolder; ">Date</th>
+            <th style="font-weight:bolder; ">Time</th>
+            <th style="font-weight:bolder; ">City</th>
+            <th style="font-weight:bolder; ">Country</th>
+          </tr>
+        </thead>
+        
+        {% for i in productList %}
+          <tbody>
+            <tr>
+              <td >{{ i.1 }}</td>
+              <td >{{ i.2 }}</td>
+              <td >{{ i.3 }}</td>
+              <td >{{ i.4 }}</td>
+              <td >{{ i.5 }}</td>
+            </tr>
+          </tbody>
+        {% endfor %}
+        
+      </table>
+    </div>
+    <div >
+      
+    </div>
+  </div>
+  
+{% endblock %}
