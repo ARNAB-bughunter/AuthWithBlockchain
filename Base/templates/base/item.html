@@ -2,10 +2,8 @@
 {% block content %}
   
   <div style="text-align: center;max-width: 600px;" class="shadow-lg p-3 mb-5 bg-body mx-auto rounded row">
-    <div class="col" style=" overflow-x: scroll;overflow-y: hidden;white-space: nowrap;">
-      {% for k in photos %}
-        <img src="{{ k.images.url }}" class="img-thumbnail">
-      {% endfor %}
+    <div class="col" >
+        <img src="{{ product.image.url }}" class="img-thumbnail">
     </div>
     <p></p>
     <div class="d-grid gap-2 col-6 mx-auto">

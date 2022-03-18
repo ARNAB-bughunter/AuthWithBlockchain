@@ -42,6 +42,5 @@ def itemDetail(request,id):
     verification=False
     register=False
     product = productDetail.objects.get(id=id)
-    photos = productImage.objects.filter(productdetail=product)
     productList=blockchain_obj.aboutProduct(id)
-    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register,"photos":photos})
+    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
