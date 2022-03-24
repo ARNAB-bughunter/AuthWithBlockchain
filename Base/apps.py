@@ -22,7 +22,11 @@ class BaseConfig(AppConfig):
             settings.APP_URL='http://'+temp[-1]+'/'
 
         if( 'runserver' in temp ):
-            blockchain_obj=myBlockchain()
-            blockchain_obj.deployContract()
-            system('')
-            print(u"\u001b[32;1mSmart contract Deployed Successfully...... \u001b[0m")
+            try:
+                blockchain_obj=myBlockchain()
+                blockchain_obj.deployContract()
+                system('')
+                print(u"\u001b[32;1mSmart contract Deployed Successfully...... \u001b[0m")
+            except:
+                print(u"\u001b[31;1mSome Thing went wrong while deploying smart contract...... \u001b[0m")
+                exit()
