@@ -28,7 +28,7 @@ BLOCKCHAIN_URL = "http://127.0.0.1:7545/"
 SECRET_KEY = 'django-insecure-l+5y#rf7qglz6_=%!ce&urk@o&l60zzy!)fa#zk5q-1$@_1im8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 

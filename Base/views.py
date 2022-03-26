@@ -21,7 +21,6 @@ def verification(request):
             messages.info(request,'Wrong Code')
             return redirect('/item/'+pid+'/')
     product = productDetail.objects.get(id=pid)
-    
     productList=blockchain_obj.aboutProduct(pid)
     return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
 
@@ -34,7 +33,6 @@ def register(request):
         verification=True
         register=True
     product = productDetail.objects.get(id=pid)
-    
     productList=blockchain_obj.aboutProduct(pid)
     return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
     
@@ -44,3 +42,11 @@ def itemDetail(request,id):
     product = productDetail.objects.get(id=id)
     productList=blockchain_obj.aboutProduct(id)
     return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
+
+
+
+def handler404(request,exception):
+    return render(request,'404_error.html')
+
+def handler500(request):
+    return render(request,'500_error.html')
