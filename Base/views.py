@@ -21,7 +21,7 @@ def verification(request):
             messages.info(request,'Wrong Code')
             return redirect('/item/'+pid+'/')
     product = productDetail.objects.get(id=pid)
-    photos = productImage.objects.filter(productdetail=product)
+    
     productList=blockchain_obj.aboutProduct(pid)
     return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
 
@@ -34,7 +34,7 @@ def register(request):
         verification=True
         register=True
     product = productDetail.objects.get(id=pid)
-    photos = productImage.objects.filter(productdetail=product)
+    
     productList=blockchain_obj.aboutProduct(pid)
     return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
     
