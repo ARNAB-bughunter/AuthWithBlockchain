@@ -4,7 +4,7 @@ from .models import *
 from .apps import blockchain_obj
 from passlib.hash import pbkdf2_sha256
 from django.conf import settings
-
+from .forms import productDetailForm
 
 
 def index(request):
@@ -43,6 +43,21 @@ def itemDetail(request,id):
     product = productDetail.objects.get(id=id)
     productList=blockchain_obj.aboutProduct(id)
     return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
+
+def qrcreate(request):
+    form=productDetailForm()
+    if request.method=='POST':
+        fm=productDetailForm(request.POST,request.FILES)
+        if fm.is_valid():
+            productName=fm.cleaned_data['productName']
+            productDescription=fm.cleaned_data['productDescription']
+            manufacturer=fm.cleaned_data['manufacturer']
+            image=fm.cleaned_data['image']
+            productdetail=productDetail(productName=productName,productDescription=productDescription,manufacturer=manufacturer,image=image)
+            productdetail.save()            
+            blockchain_obj.registerProduct(str(productdetail.pk),productdetail.manufacturer,'Manufacturer','--','--')
+    return render(request,'qrgenarate.html',{'form':form})
+
 
 
 
