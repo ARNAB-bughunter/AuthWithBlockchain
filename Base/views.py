@@ -46,6 +46,7 @@ def itemDetail(request,id):
 
 def qrcreate(request):
     form=productDetailForm()
+    product=None
     if request.method=='POST':
         fm=productDetailForm(request.POST,request.FILES)
         if fm.is_valid():
@@ -54,12 +55,12 @@ def qrcreate(request):
             manufacturer=fm.cleaned_data['manufacturer']
             image=fm.cleaned_data['image']
             productdetail=productDetail(productName=productName,productDescription=productDescription,manufacturer=manufacturer,image=image)
-            productdetail.save()            
+            productdetail.save()     
+            product = productdetail      
             blockchain_obj.registerProduct(str(productdetail.pk),productdetail.manufacturer,'Manufacturer','--','--')
-    return render(request,'qrgenarate.html',{'form':form})
+            return render(request,'qrgenarate.html',{'form':fm,'product':product})
 
-
-
+    return render(request,'qrgenarate.html',{'form':form,'product':product})
 
 def handler404(request,exception):
     return render(request,'404_error.html')

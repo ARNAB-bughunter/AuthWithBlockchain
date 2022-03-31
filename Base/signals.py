@@ -27,6 +27,3 @@ def CodeIdGenarate(sender,instance,**kwargs):
     image = cv2.imread(temp)
     image = cv2.putText(image, temp_code, (135,365), cv2.FONT_HERSHEY_COMPLEX_SMALL,1, (0,0,0),2)
     cv2.imwrite(temp, image)
-
-
-
