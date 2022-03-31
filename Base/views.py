@@ -29,7 +29,8 @@ def register(request):
     register=False
     pid=request.POST['pid']
     if request.method=='POST': 
-        blockchain_obj.registerProduct(pid,request.POST['username'],request.POST['city'],request.POST['country'])
+        tx_hash=blockchain_obj.registerProduct(pid,request.POST['username'],request.POST['ownership'],request.POST['city'],request.POST['country'])
+        transactionsDetail(productID=pid,tx_hash=tx_hash).save()
         verification=True
         register=True
     product = productDetail.objects.get(id=pid)

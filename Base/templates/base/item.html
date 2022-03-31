@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-  
+{% include "header_2.html" %}
   <div style="text-align: center;max-width: 600px;" class="shadow-lg p-3 mb-5 bg-body mx-auto rounded row">
     <div class="col" >
         <img src="{{ product.image.url }}" class="img-thumbnail">
@@ -40,9 +40,16 @@
           {% csrf_token %}
           <h6>Now Register Yourself</h6>
           <input type="hidden" value="{{ product.id }}" name="pid">
-          <input type="text" class="form-control" placeholder="Enter Your Name" name="username" ><br>
-          <input type="text" class="form-control" placeholder="Enter Your City Name" name="city"><br>
-          <input type="text" class="form-control" placeholder="Enter Your Country Name" name="country"><br>
+          <input type="text" class="form-control" placeholder="Enter Your Name" name="username" required><br>
+          <select class="form-control" name="ownership" required>
+            <option disabled hidden selected value="">Enter Ownership Type</option>
+            <option value="Distributer">Distributer</option>
+            <option value="Retailer">Retailer</option>
+            <option value="End Customer">End Customer</option>
+          </select>
+          <br>       
+          <input type="text" class="form-control" placeholder="Enter Your City Name" name="city" required><br>
+          <input type="text" class="form-control" placeholder="Enter Your Country Name" name="country" required><br>
           <button class="btn btn-outline-success" type="submit" >Submit</button>
         </form>
         
@@ -69,10 +76,12 @@
         <thead class="table-light">
           <tr>
             <th style="font-weight:bolder; ">Username</th>
+            <th style="font-weight:bolder; ">Ownership Type</th>
             <th style="font-weight:bolder; ">Date</th>
             <th style="font-weight:bolder; ">Time</th>
             <th style="font-weight:bolder; ">City</th>
             <th style="font-weight:bolder; ">Country</th>
+            
           </tr>
         </thead>
         
@@ -84,6 +93,8 @@
               <td >{{ i.3 }}</td>
               <td >{{ i.4 }}</td>
               <td >{{ i.5 }}</td>
+              <td >{{ i.6 }}</td>
+              
             </tr>
           </tbody>
         {% endfor %}
@@ -94,5 +105,5 @@
       
     </div>
   </div>
-  
+  {% include "footer.html" %}
 {% endblock %}

@@ -14,4 +14,6 @@ class product(admin.ModelAdmin):
 
 
 
-
+@admin.register(transactionsDetail)
+class transactions(admin.ModelAdmin):
+    list_display=['productID']
