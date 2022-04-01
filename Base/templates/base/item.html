@@ -2,23 +2,16 @@
 {% block content %}
 {% include "header_2.html" %}
   <div style="text-align: center;max-width: 600px;" class="shadow-lg p-3 mb-5 bg-body mx-auto rounded row">
+    <p>{{ product.productName }} </p>
     <div class="col" >
         <img src="{{ product.image.url }}" class="img-thumbnail">
     </div>
     <p></p>
     <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      Product Detail
-      </button>
-    </div>
-    <hr style="color:white;">
-    <div class="collapse" id="collapseExample">
-      <div class="card card-body">
-        <p>Product Name: {{ product.productName }}</p>
-        <p>Product Description: {{ product.productDescription }}</p>
-      </div>
-    </div>
-    
+      <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Type: {{ product.productDescription }}">
+        <button class="btn btn-primary" type="button" disabled>Product Detail</button>
+      </span>
+    </div>    
   </div>
   <div style="text-align: center; max-width: 600px;"   class="shadow-lg p-3 mb-5 bg-body rounded  mx-auto gap-2 ">
     <div  style="text-align: center;">
@@ -55,7 +48,7 @@
         
       {% else %}
         <div class="alert alert-success" role="alert">
-          You Successfully Registered
+          You Registered Successfully
         </div>
       {% endif %}
     </div>
@@ -105,5 +98,11 @@
       
     </div>
   </div>
+  <script>
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+      })
+  </script>
   {% include "footer.html" %}
 {% endblock %}
