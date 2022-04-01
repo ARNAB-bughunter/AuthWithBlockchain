@@ -28,6 +28,8 @@
       <p style="font-size: 25px;" class="fw-bolder">QR CODE</p>
       {% if product %}
           <img class="img-thumbnail" src="{{ product.QRcodePicture.url }}">
+          <br><br>
+          <a class="btn btn-primary" href="{{ product.QRcodePicture.url }}" role="button" download="">Download</a>
       {% else %}
           
       {% endif %}
