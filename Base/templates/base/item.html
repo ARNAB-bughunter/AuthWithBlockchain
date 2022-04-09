@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include "header_2.html" %}
+{% if  request.user.is_anonymous  %}
+    {% include "header_2.html" %}
+{% else %}
+    {% include "header_1.html" %}
+{% endif %}
   <div style="text-align: center;max-width: 600px;" class="shadow-lg p-3 mb-5 bg-body mx-auto rounded row">
     <p>{{ product.productName }} </p>
     <div class="col" >
@@ -17,7 +21,7 @@
     <div  style="text-align: center;">
       
       {% if not verification %}
-        <form action="verify/" method="post">
+        <form action="/verify/" method="post">
           {% csrf_token %}
           <h6 style="text-align: center;">Please Verify Your Product</h6>
           <input type="hidden" value="{{ product.id }}" name="pid">
@@ -29,7 +33,7 @@
         
         
         {% elif not register %}
-        <form action="register/" method="post">
+        <form action="/register/" method="post">
           {% csrf_token %}
           <h6>Now Register Yourself</h6>
           <input type="hidden" value="{{ product.id }}" name="pid">

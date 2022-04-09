@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container d-flex align-items-center justify-content-center" >
+    <div class="shadow-lg p-3 mb-5 bg-body rounded" style="margin-top:25px;min-width: 290px;">
+      
+      <br>
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><span class="material-icons">&#xe729;</span></span>
+          <input type="text" class="form-control" placeholder="Company Name" name="company" aria-describedby="basic-addon1">
+        </div>
+
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><span class="material-icons">&#xe0cd;</span> </span>
+          <input type="text" class="form-control" placeholder="Phone Number" name="phone" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><span class="material-icons">&#xe0e6;</span></span>
+          <input type="text" class="form-control" placeholder="Email" name="email" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><span class="material-icons">&#xe853;</span></span>
+          <input type="text" class="form-control" placeholder="Username" name="username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><span class="material-icons">&#xf042;</span></span>
+          <input type="text" class="form-control" placeholder="Password" name="password" aria-describedby="basic-addon1">
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-primary me-md-2" type="submit">Button</button>
+        </div>
+
+      </form>
+      
+    </div>
+  </div>
+  <div class="container d-flex align-items-center justify-content-center " style="max-width: 290px;">
+    <a href="/signin/" style="color: black;text-decoration: none;">Have an account? Log in</a>
+  </div>
+{% endblock %}

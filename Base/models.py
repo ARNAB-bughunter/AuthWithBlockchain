@@ -3,6 +3,9 @@ from PIL import Image
 from django.contrib.auth.models import AbstractUser
 
 
+class User(AbstractUser):
+    companyName=models.TextField()
+    phone=models.TextField()
 
 class productDetail(models.Model):
     productName = models.TextField()
@@ -25,3 +28,5 @@ class transactionsDetail(models.Model):
     productID = models.CharField(max_length=100,null=False,blank=False)
     tx_hash = models.TextField()
     created = models.DateTimeField(auto_now=True)
+
+
