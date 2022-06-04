@@ -1,0 +1,93 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+{% load static %}
+   <link rel="stylesheet" href="{% static 'auth.css' %}">
+    
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="cover__img">
+                <img src="{% static '1519087.jpg' %}" alt="">
+            </div>
+        </div>
+            <div class="form__body">
+                
+                    <form action="/signin/" method="post" class="login__form">
+                        {% csrf_token %}
+                        <div class="form__header">Login</div>
+                        <div class="input__fields">
+                            <div class="input__field">
+                                <span class="material-symbols-sharp">person</span>
+                                <input type="text" placeholder="username" tabindex=-1 name="username">
+                                <!-- changes -->
+                                <div class="line"></div>
+                                <!-- end of change -->
+                            </div>
+                            <div class="input__field password">
+                                <span class="material-symbols-sharp">lock</span>
+                                <input type="password" placeholder="password" tabindex=-1 name="password">
+                                <div class="line"></div>
+                            </div>
+                            <div class="input__field button">
+                                <input type="submit" value="Login">                                
+                            </div>
+                            <div class="text">Don't have an account? <label for="flip">Sign Up now</lable>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="/signup/" method="post" class="signup__form">
+                        {% csrf_token %}
+                        <div class="form__header">Sign Up</div>
+                        <div class="input__fields">
+                            <div class="input__field">
+                                <span class="material-symbols-sharp">business</span>
+                                <input type="text" placeholder="Company Name" tabindex=-1 name="company">
+                                <!-- changes -->
+                                <div class="line"></div>
+                                <!-- end of change -->
+                            </div>
+                            <div class="input__field">
+                                <span class="material-icons">smartphone</span>
+                                <input type="text" placeholder="Phone Number" tabindex=-1 name="phone">
+                                <!-- changes -->
+                                <div class="line"></div>
+                                <!-- end of change -->
+                            </div>
+                            
+                            <div class="input__field email">
+                                <span class="material-symbols-sharp">mail</span>
+                                <input type="email" placeholder="email" tabindex=-1 name="email">
+                                <!-- changes -->
+                                <div class="line"></div>
+                                <!-- end of change -->
+                            </div>
+                            <div class="input__field">
+                                <span class="material-symbols-sharp">person</span>
+                                <input type="text" placeholder="username" tabindex=-1 name="username">
+                                <!-- changes -->
+                                <div class="line"></div>
+                                <!-- end of change -->
+                            </div>
+                            <div class="input__field password">
+                                <span class="material-symbols-sharp">password</span>
+                                <input type="password" placeholder="password" tabindex=-1 name="password">
+                                <!-- changes -->
+                                <div class="line"></div>
+                                <!-- end of change -->
+                            </div>
+                            <div class="input__field button">
+                                <span></span>
+                                <input type="submit" value="Sign Up">
+                            </div>
+                            <div class="text">Already have an account? <label for="flip">Login now</lable>
+                            </div>
+                        </div>
+                    </form>
+
+            </div>
+       
+    </div>
+
+{% endblock %}

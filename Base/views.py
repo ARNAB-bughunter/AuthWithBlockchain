@@ -16,6 +16,7 @@ def index(request):
 def verification(request):
     verification=False
     register=False
+    connected=True
     pid=request.POST['pid']
     if request.method=='POST': 
         if( pbkdf2_sha256.verify(request.POST['code'].upper(), productDetail.objects.get(id=pid).code) ):
@@ -25,27 +26,48 @@ def verification(request):
             return redirect('/item/'+pid+'/')
     product = productDetail.objects.get(id=pid)
     productList=blockchain_obj.aboutProduct(pid)
-    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
+    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register,"connected":connected})
 
 def register(request):
     verification=False
     register=False
+    connected=True
     pid=request.POST['pid']
+    manufacturer=productDetail.objects.get(id=int(pid)).manufacturer
     if request.method=='POST': 
         tx_hash=blockchain_obj.registerProduct(pid,request.POST['username'],request.POST['ownership'],request.POST['city'],request.POST['country'])
-        transactionsDetail(productID=pid,tx_hash=tx_hash).save()
+        transactionsDetail(productID=pid,manufacturer=manufacturer,tx_hash=tx_hash).save()
         verification=True
         register=True
     product = productDetail.objects.get(id=pid)
     productList=blockchain_obj.aboutProduct(pid)
-    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
-    
+    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register,"connected":connected})
+
+def setUser(request):
+    verification=False
+    register=False
+    connected=False
+    pid=request.POST['pid']
+    if request.method=='POST':
+        useraddres = request.POST['useraddress']
+        blockchain_obj.setAccount(useraddres)
+        connected = True
+        print(useraddres)
+
+
+    product = productDetail.objects.get(id=pid)
+    productList=blockchain_obj.aboutProduct(pid)
+    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register,"connected":connected})
+
+
+
 def itemDetail(request,id):
     verification=False
     register=False
+    connected=False
     product = productDetail.objects.get(id=id)
     productList=blockchain_obj.aboutProduct(id)
-    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register})
+    return render(request,'item.html',{"product":product,"verification":verification,"productList":productList,"register":register,"connected":connected})
 
 def qrcreate(request):
     form=productDetailForm()
@@ -70,24 +92,31 @@ def about(request):
 def blog(request):
     return render(request,'blog.html')
 
+def authentication(request):
+    return render(request,'auth.html')
+
 def signin(request):
     if request.method=='POST':
         user=auth.authenticate(username=request.POST['username'],password=request.POST['password'])
         if user is not None:
             auth.login(request, user)
             print(request.user.companyName)
-            return redirect('/')
+            return redirect('dashboard/')
         else:
             messages.error(request,"Invalid Credential")
-            return render(request,'signin.html')
-    return render(request,'signin.html')
+            return render(request,'auth.html')
 
 def signup(request):
     if request.method=='POST':
         User.objects.create_user(companyName=request.POST['company'],phone=request.POST['phone'],email=request.POST['email'],username=request.POST['username'],password=request.POST['password'])
-        return redirect('/signin/')
-    return render(request,'signup.html')
+        return redirect('/auth/')
 
+def dashboard(request):
+    allproduct=productDetail.objects.filter(manufacturer=request.user.companyName)
+    return render(request,'dashboard.html',{'allproduct':allproduct})
+
+def blockchain(request):
+    return render(request,'blockchain.html')
 
 def signout(request):
     auth.logout(request)

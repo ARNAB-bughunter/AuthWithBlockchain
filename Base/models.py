@@ -26,6 +26,7 @@ class productDetail(models.Model):
 
 class transactionsDetail(models.Model):
     productID = models.CharField(max_length=100,null=False,blank=False)
+    manufacturer = models.TextField()
     tx_hash = models.TextField()
     created = models.DateTimeField(auto_now=True)
 

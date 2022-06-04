@@ -1,0 +1,35 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+{% if  request.user.is_anonymous  %}
+    {% include "header_2.html" %}
+{% else %}
+    {% include "header_1.html" %}
+{% endif %}
+
+<h1>Dashboard</h1>
+<h5>All product</h5>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in allproduct %}
+    <tr>
+        <td>{{ product.productName }}</td>
+        <td>{{ product.productDescription }}</td>
+        <td><a href="{{ product.image.url }}">IMAGE</a></td>
+    </tr>
+    {% endfor %}    
+  </tbody>
+</table>
+
+
+{% include "footer.html" %}
+
+
+{% endblock %}
