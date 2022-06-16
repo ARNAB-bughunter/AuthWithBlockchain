@@ -11,6 +11,9 @@ class product(admin.ModelAdmin):
     list_display = ['productName'] 
     readonly_fields=('QRcodePicture','code')
 
+@admin.register(sellRecord)
+class sell(admin.ModelAdmin):
+    list_display=['productID']
 
 @admin.register(transactionsDetail)
 class transactions(admin.ModelAdmin):

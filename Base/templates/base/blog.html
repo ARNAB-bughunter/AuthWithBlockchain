@@ -1,11 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %}
 
-{% if  request.user.is_anonymous  %}
-    {% include "header_2.html" %}
-{% else %}
-    {% include "header_1.html" %}
-{% endif %}
+
 
 <h1>Blog</h1>
 

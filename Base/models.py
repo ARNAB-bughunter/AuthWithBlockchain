@@ -14,7 +14,8 @@ class productDetail(models.Model):
     QRcodePicture = models.ImageField(upload_to='QRcode',blank=True)
     image = models.ImageField(upload_to = 'product')
     manufacturer = models.TextField()
-    created=models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now=True)
+    link = models.TextField()
     
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -31,3 +32,11 @@ class transactionsDetail(models.Model):
     created = models.DateTimeField(auto_now=True)
 
 
+
+class sellRecord(models.Model):
+    productID = models.CharField(max_length=100,null=False,blank=False)
+    productName = models.TextField()
+    manufacturer = models.TextField()
+    link = models.TextField()
+    sellType = models.IntegerField()
+    created = models.DateTimeField(auto_now=True)

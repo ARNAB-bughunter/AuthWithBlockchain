@@ -28,6 +28,9 @@ class myBlockchain():
     def setAccount(self,useraddress):
         self.web.eth.default_account = Web3.toChecksumAddress(useraddress)
 
+    def setDefaultAccount(self):
+        self.web.eth.default_account = self.web.eth.accounts[0]
+
 
     def registerProduct(self,id,username,ownerType,city,country):
         tx_hash=self.contract.functions.register(id,username,ownerType,datetime.now().strftime('%d:%m:%y'),datetime.now().strftime('%H:%M:%S'),city,country).transact()

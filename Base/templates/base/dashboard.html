@@ -1,32 +1,118 @@
 {% extends 'base.html' %} 
 {% block content %}
+{% load static %}
 
-{% if  request.user.is_anonymous  %}
-    {% include "header_2.html" %}
-{% else %}
-    {% include "header_1.html" %}
-{% endif %}
+<h2 style="text-transform:uppercase;font-size:100px;font-family: 'Blaka', cursive;text-align: center;text-shadow: 2px 2px #ff0000;">{{ request.user.companyName }}</h2>
 
-<h1>Dashboard</h1>
-<h5>All product</h5>
-<table class="table">
+<div style="padding: 3rem" class="shadow-lg p-10 mb-8 row">
+    <h5 style="padding: 2rem;font-family:'Verdana';">Some analytical</h5>
+    <div class="col" id="BarChart" style="box-shadow: 0 14px 28px rgba(119, 191, 217, 0.5), 0 10px 10px rgba(0, 0, 0, 0.22);"></div>
+    <div class="col" id="piechart_3d" style="box-shadow: 0 14px 28px rgba(119, 191, 217, 0.5), 0 10px 10px rgba(0, 0, 0, 0.22);"></div>
+</div>
+
+<div style="padding: 3rem" class="shadow-lg p-10 mb-8 row">
+    <h5  style="padding: 2rem;font-family:'Verdana';">All product</h5>
+    <table class="table table-striped table-hover table-bordered" >
   <thead>
     <tr>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th style="padding: 1rem;" scope="col">Product ID</th>
+      <th style="padding: 1rem;" scope="col">Product NAme</th>
+      <th style="padding: 1rem;" scope="col">Description</th>
+      <th style="padding: 1rem;" scope="col">Link</th>
     </tr>
   </thead>
   <tbody>
     {% for product in allproduct %}
     <tr>
-        <td>{{ product.productName }}</td>
-        <td>{{ product.productDescription }}</td>
-        <td><a href="{{ product.image.url }}">IMAGE</a></td>
+        <td style="padding: 1rem;">{{ product.id }} </td>
+        <td style="padding: 1rem;">{{ product.productName }}</td>
+        <td style="padding: 1rem;">{{ product.productDescription }}</td>
+        <td style="padding: 1rem;"><a href="{{ product.link }}"><i class="fa-solid fa-share"></i></a></td>
     </tr>
     {% endfor %}    
   </tbody>
-</table>
+    </table>
+</div>
+
+<div style="padding: 3rem" class="shadow-lg p-10 mb-8 row">
+    <h5 style="padding: 2rem;font-family:'Verdana';">Sell Product</h5>  
+    <table class="table table-striped table-hover table-bordered" >
+  <thead>
+    <tr>
+      <th style="padding: 1rem;" scope="col">Product ID</th>
+      <th style="padding: 1rem;" scope="col">Product NAme</th>
+      <th style="padding: 1rem;" scope="col">Product Status</th>
+      <th style="padding: 1rem;" scope="col">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in sellproduct %}
+    <tr>
+        <td style="padding: 1rem;">{{ product.productID }}</td>
+        <td style="padding: 1rem;">{{ product.productName }}</td>
+        <td style="padding: 1rem;">
+            {% if product.sellType == 1 %}
+                Distributer
+            {% elif product.sellType == 2 %}
+                Retailer
+            {% else %}
+                End Customer
+            {% endif %}
+        </td>
+        <td><a href="{{ product.link }}"><i class="fa-solid fa-share"></i></a></td>
+    </tr>
+    {% endfor %}    
+  </tbody>
+    </table>
+</div>
+
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        
+        // Draw the chart and set the chart values
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+          ['Type','Total Product',],
+          ['sell', {{ sell }}],
+          ['Register', {{ register }}],
+         ]);
+        
+          // Optional; add a title and set the width and height of the chart
+          var options = {
+             'width':600, 'height':500,
+              'title': "Total Register Product(by Comapany) vs Total Sold Product",
+              is3D: true,
+           };
+    
+          // Display the chart inside the <div> element with id="piechart"
+          var chart = new google.visualization.BarChart(document.getElementById('BarChart'));
+          chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Product Status', 'Count'],
+          ['Distributer',     {{ distributerCount }}],
+          ['Retailer',      {{ retailerCount }}],
+          ['End Customer',  {{ endCustomerCount }}]
+        ]);
+
+        var options = {
+          title: 'Sell Product Status',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+  </script>
+    
 
 
 {% include "footer.html" %}

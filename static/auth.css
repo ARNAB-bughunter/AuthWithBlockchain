@@ -24,7 +24,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    background: var(--card-color-3);
+    background: white;
+
 }
 
 .container {
@@ -32,6 +33,7 @@ body {
     width: 900px;
     padding: 2.5rem 2rem;
     position: relative;
+    box-shadow: 0 14px 28px rgba(119, 191, 217, 0.5), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .container .cover {

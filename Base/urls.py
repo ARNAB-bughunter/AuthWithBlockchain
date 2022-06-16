@@ -17,4 +17,5 @@ urlpatterns = [
     re_path(r'dashboard/$',views.dashboard),
     re_path(r'blockchain/$',views.blockchain),
     re_path(r'setuser/$',views.setUser),
+    
 ]

@@ -18,6 +18,7 @@ def CodeIdGenarate(sender,instance,**kwargs):
     img = qrcode.make(x)
     instance.code = code
     instance.id = id
+    instance.link = x
     y = str(instance.id)+'.png'
     z = 'QRcode/'+y
     img.save(settings.BASE_DIR/'media'/'QRcode'/y)    
