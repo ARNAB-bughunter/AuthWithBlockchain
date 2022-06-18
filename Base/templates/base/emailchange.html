@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-center">
+    <div class="shadow-lg p-3 mb-5 bg-body rounded" style="width:30rem;text-align:center;">
+        <h3 style="padding-bottom: 3rem;">Change Password</h3>
+        <form action="" method="post" style="padding-left: 2rem;padding-right: 2rem;">
+            {% csrf_token %}
+            {% if check %}
+                <input name="ftype" value="2" type="hidden">
+                <input class="form-control" type="email" placeholder="New Email" style="margin-bottom: 1rem;"
+                    name="newemail">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button style="margin-bottom: 1rem;" class="btn btn-primary" type="submit">Reset Password</button>
+                </div>
+            {% else %}
+                <input name="ftype" value="1" type="hidden">
+                <input class="form-control" type="password" placeholder="Password" style="margin-bottom: 1rem;"
+                    name="password">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button style="margin-bottom: 1rem;" class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            {% endif %}
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div style="background-color: rgb(248, 215, 218); padding: 1rem 1rem;">
+                        <p style="text-align: center; font-size:17px;font-weight: bolder;font-family: 'Poppins', sans-serif;color: rgb(132,32,41);">
+                            <span class="material-icons">warning</span> {{ message }}</p>
+                    </div>
+                {% elif message.tags == 'success' %}
+                    <div style="background-color: rgb(209, 231, 221); padding: 1rem 1rem;">
+                        <p style="text-align: center; font-size:17px;font-weight: bolder;font-family: 'Poppins', sans-serif;color: rgb(15, 81, 50);">
+                            <span class="material-icons">check</span> {{ message }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% include "footer.html" %}
+
+
+{% endblock %}

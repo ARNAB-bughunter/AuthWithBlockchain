@@ -40,3 +40,12 @@ class sellRecord(models.Model):
     link = models.TextField()
     sellType = models.IntegerField()
     created = models.DateTimeField(auto_now=True)
+
+
+class feedbacks(models.Model):
+    name = models.TextField()
+    email = models.EmailField()
+    subject = models.TextField()
+    message = models.TextField()
+    created = models.DateTimeField(auto_now=True)
+

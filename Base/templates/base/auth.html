@@ -1,10 +1,11 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'auth.css' %}">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+    
     <style>
 
             /* The Modal (background) */
@@ -97,14 +98,14 @@
                 <div class="form__header">Login</div>
                 <div class="input__fields">
                     <div class="input__field">
-                        <span class="material-symbols-sharp">person</span>
+                        <span class="material-icons">person</span>
                         <input type="text" placeholder="username" tabindex=-1 name="username">
                         <!-- changes -->
                         <div class="line"></div>
                         <!-- end of change -->
                     </div>
                     <div class="input__field password">
-                        <span class="material-symbols-sharp">lock</span>
+                        <span class="material-icons">lock</span>
                         <input type="password" placeholder="password" tabindex=-1 name="password">
                         <div class="line"></div>
                     </div>
@@ -120,7 +121,7 @@
                 <div class="form__header">Sign Up</div>
                 <div class="input__fields">
                     <div class="input__field">
-                        <span class="material-symbols-sharp">business</span>
+                        <span class="material-icons">business</span>
                         <input type="text" placeholder="Company Name" tabindex=-1 name="company">
                         <!-- changes -->
                         <div class="line"></div>
@@ -135,21 +136,21 @@
                     </div>
                     
                     <div class="input__field email">
-                        <span class="material-symbols-sharp">mail</span>
+                        <span class="material-icons">mail</span>
                         <input type="email" placeholder="email" tabindex=-1 name="email">
                         <!-- changes -->
                         <div class="line"></div>
                         <!-- end of change -->
                     </div>
                     <div class="input__field">
-                        <span class="material-symbols-sharp">person</span>
+                        <span class="material-icons">person</span>
                         <input type="text" placeholder="username" tabindex=-1 name="username">
                         <!-- changes -->
                         <div class="line"></div>
                         <!-- end of change -->
                     </div>
                     <div class="input__field password">
-                        <span class="material-symbols-sharp">password</span>
+                        <span class="material-icons">password</span>
                         <input type="password" placeholder="password" tabindex=-1 name="password">
                         <!-- changes -->
                         <div class="line"></div>
@@ -166,16 +167,18 @@
         </div>
     </div>
 
-<script>
-        var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close")[0];
-        {% if messages %}
+{% if messages %}
+    <script>
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            {% if messages %}
+                modal.style.display = "block";
+            {% endif %}
+            
             modal.style.display = "block";
-        {% endif %}
-        
-        modal.style.display = "block";
-          
-        span.onclick = function() {
-          modal.style.display = "none";
-        }
-</script>
+            
+            span.onclick = function() {
+            modal.style.display = "none";
+            }
+    </script>
+{% endif %}

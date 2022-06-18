@@ -18,3 +18,6 @@ class sell(admin.ModelAdmin):
 @admin.register(transactionsDetail)
 class transactions(admin.ModelAdmin):
     list_display=['productID']
+@admin.register(feedbacks)
+class feedbacks(admin.ModelAdmin):
+    list_display=['subject']

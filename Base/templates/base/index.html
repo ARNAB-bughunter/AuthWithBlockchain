@@ -5,7 +5,83 @@
 <link href="{% static 'css/style.css' %}" rel="stylesheet">
 <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
 <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+<style>
+
+    /* The Modal (background) */
+    .modal {
+      display: block; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+    }
+    .modal-content {
+      position: relative;
+      margin: auto;
+      padding: 0;
+      border: 1px solid #888;
+      width: 30%;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+      -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s;
+      border-radius: 5px;
+    }
+    @-webkit-keyframes animatetop {
+      from {top:-300px; opacity:0} 
+      to {top:0; opacity:1}
+    }
+    @keyframes animatetop {
+      from {top:-300px; opacity:0}
+      to {top:0; opacity:1}
+    }
+    .close {
+      color: black;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .modal-body {padding: 2px 16px;text-align: center;}
+</style>
 <body>
+    {% if messages%}
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        {% for message in messages %}
+            {%  if message.tags == 'error'  %}
+                <div style="background-color: rgb(248, 215, 218);" class="modal-content">
+                    <div  class="modal-body">
+                        <span  class="close">&times;</span>
+                            <p style="font-size:25px;font-weight: bolder;font-family: 'Poppins', sans-serif;padding: 1rem;color: rgb(132,32,41);"><span class="material-icons">warning</span> {{ message }}</p>
+                    </div>
+                </div>
+            {%  elif message.tags == 'success'  %}
+                <div style="background-color: rgb(209, 231, 221);" class="modal-content">
+                    <div  class="modal-body">
+                        <span  class="close">&times;</span>
+                            <p style="font-size:25px;font-weight: bolder;font-family: 'Poppins', sans-serif;padding: 1rem;color: rgb(15, 81, 50);"><span class="material-icons">check</span> {{ message }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}        
+    </div>
+    {% endif %}
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -95,7 +171,7 @@
                         <a href="" class="btn btn-primary py-sm-3 px-sm-5 rounded-pill mt-3">Read More</a>
                     </div>
                     <div class="col-lg-6">
-                        <img class="img-fluid rounded wow zoomIn" data-wow-delay="0.5s" src="{% static 'img/about.jpg' %}">
+                        <img class="img-fluid rounded wow zoomIn" data-wow-delay="0.5s" src="{% static 'img/dashboard.png' %}">
                     </div>
                 </div>
             </div>
@@ -152,10 +228,10 @@
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
                             <h5 class="mb-0">Blockchain</h5>
                         </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
+                        <p class="mb-4">Blockchain is a shared, immutable ledger that facilitates the process of recording transactions and tracking assets in a business network. An asset can be tangible (a house, car, cash, land) or intangible (intellectual property, patents, copyrights, branding). Virtually anything of value can be tracked and traded on a blockchain network, reducing risk and cutting costs for all involved.</p>
+                        <!-- <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
                         <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
+                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p> -->
                     </div>
                 </div>
                 <div class="row g-5 py-5 align-items-center flex-column-reverse flex-lg-row">
@@ -165,10 +241,10 @@
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
                             <h5 class="mb-0">Ethereum</h5>
                         </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
+                        <p class="mb-4">Ethereum is open access to digital money and data-friendly services for everyone – no matter your background or location. It's a community-built technology behind the cryptocurrency ether (ETH) and thousands of applications you can use today.</p>
+                        <!-- <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
                         <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
+                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p> -->
                     </div>
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <img class="img-fluid rounded" src="{% static 'img/ethereum.jpg' %}">
@@ -184,10 +260,10 @@
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
                             <h5 class="mb-0">python</h5>
                         </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
+                        <p class="mb-4">Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together. Python's simple, easy to learn syntax emphasizes readability and therefore reduces the cost of program maintenance. Python supports modules and packages, which encourages program modularity and code reuse. The Python interpreter and the extensive standard library are available in source or binary form without charge for all major platforms, and can be freely distributed.</p>
+                        <!-- <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
                         <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
+                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p> -->
                     </div>
                 </div>
                 <div class="row g-5 py-5 align-items-center flex-column-reverse flex-lg-row">
@@ -197,10 +273,10 @@
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
                             <h5 class="mb-0">Solidity</h5>
                         </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
+                        <p class="mb-4">Solidity is a statically typed programming language designed for developing smart contracts that run on the Ethereum Virtual Machine (EVM).</p>
+                        <!-- <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
                         <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
+                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p> -->
                     </div>
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <img class="img-fluid rounded" src="{% static 'img/solidity.jpg' %}">
@@ -216,10 +292,10 @@
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
                             <h5 class="mb-0">Django</h5>
                         </div>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
+                        <p class="mb-4">Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.</p>
+                        <!-- <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
                         <p><i class="fa fa-check-circle text-primary me-3"></i>User friendly interface</p>
-                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p>
+                        <p class="mb-0"><i class="fa fa-check-circle text-primary me-3"></i>More effective & poerwfull</p> -->
                     </div>
                 </div>
 
@@ -322,7 +398,7 @@
                 <div class="row g-5">
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <h1 class="mb-3">Your feedback is important.</h1>
-                        <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. </p>
+                        <p class="mb-4">Should you have face any issue,feel free to contact us,we will get back to you as soon as we can!!!!!!</p>
                         <div class="d-flex mb-4">
                             <div class="flex-shrink-0 btn-square rounded-circle bg-primary text-white">
                                 <i class="fa fa-phone-alt"></i>
@@ -352,29 +428,30 @@
                         </div>
                     </div>
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <form>
+                        <form action="feedback/" method="post">
+                            {% csrf_token %}
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name" name="name">
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="email" class="form-control" id="email" placeholder="Your Email" name="email">
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="text" class="form-control" id="subject" placeholder="Subject" name="subject">
                                         <label for="subject">Subject</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px" name="message"></textarea>
                                         <label for="message">Message</label>
                                     </div>
                                 </div>
@@ -388,9 +465,6 @@
             </div>
         </div>
         <!-- Contact End -->
-        
-
-        
         </div>
 
     <!-- JavaScript Libraries -->
@@ -405,6 +479,23 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+    
+
+    {% if messages %}
+        <script>
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            {% if messages %}
+                modal.style.display = "block";
+            {% endif %}
+            
+            modal.style.display = "block";
+            
+            span.onclick = function() {
+            modal.style.display = "none";
+            }
+        </script>
+    {% endif %}
 
 </body>
     {% include "footer.html" %}

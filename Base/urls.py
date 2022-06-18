@@ -17,5 +17,8 @@ urlpatterns = [
     re_path(r'dashboard/$',views.dashboard),
     re_path(r'blockchain/$',views.blockchain),
     re_path(r'setuser/$',views.setUser),
-    
+    re_path(r'feedback/',views.feedback),
+    re_path(r'changeemail/',views.changeEmail),
+    re_path(r'changepassword/',views.changePassword),
+    re_path(r'forgetpassword/',views.forgetPassword)
 ]

@@ -1,17 +1,26 @@
 {% extends 'base.html' %} 
 {% block content %}
 {% load static %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   
+<h1>Company Dashboard</h1>
+<p style="font-size: 25px;font-weight: bold;">{{ request.user.companyName }}</p>
 
-<h2 style="text-transform:uppercase;font-size:100px;font-family: 'Blaka', cursive;text-align: center;text-shadow: 2px 2px #ff0000;">{{ request.user.companyName }}</h2>
+<style>
+.my_row{
+  margin-top: 2rem;
+}
 
-<div style="padding: 3rem" class="shadow-lg p-10 mb-8 row">
+</style>
+
+<div style="padding: 3rem" class="my_row row shadow-lg p-3 mb-5 bg-body rounded">
     <h5 style="padding: 2rem;font-family:'Verdana';">Some analytical</h5>
-    <div class="col" id="BarChart" style="box-shadow: 0 14px 28px rgba(119, 191, 217, 0.5), 0 10px 10px rgba(0, 0, 0, 0.22);"></div>
-    <div class="col" id="piechart_3d" style="box-shadow: 0 14px 28px rgba(119, 191, 217, 0.5), 0 10px 10px rgba(0, 0, 0, 0.22);"></div>
+    <div class="col" id="BarChart" style="height:500px;padding: 1rem;gap: 1rem;border: thick double #32a1ce;"></div>
+    <div class="col" id="piechart_3d" style="height:500px;padding: 1rem;border: thick double #32a1ce;"></div>
 </div>
 
-<div style="padding: 3rem" class="shadow-lg p-10 mb-8 row">
-    <h5  style="padding: 2rem;font-family:'Verdana';">All product</h5>
+<div style="padding: 3rem" class="my_row row shadow-lg p-3 mb-5 bg-body rounded">
+    <h5  style="padding: 2rem;font-family:'Verdana';">All product list</h5>
     <table class="table table-striped table-hover table-bordered" >
   <thead>
     <tr>
@@ -34,8 +43,8 @@
     </table>
 </div>
 
-<div style="padding: 3rem" class="shadow-lg p-10 mb-8 row">
-    <h5 style="padding: 2rem;font-family:'Verdana';">Sell Product</h5>  
+<div style="padding: 3rem" class="my_row row shadow-lg p-3 mb-5 bg-body rounded">
+    <h5 style="padding: 2rem;font-family:'Verdana';">Sell Product list</h5>  
     <table class="table table-striped table-hover table-bordered" >
   <thead>
     <tr>
@@ -66,6 +75,13 @@
     </table>
 </div>
 
+<div style="padding: 3rem" class="my_row row ">
+
+  <div class="col shadow-lg p-3 mb-5 bg-body rounded" id="regions_div" style="height:500px;padding: 1rem;gap: 1rem;border: 1px solid black;margin-right: 2rem;"></div>
+  <div class="col shadow-lg p-3 mb-5 bg-body rounded"  style="height:500px;padding: 1rem;border: 1px solid black;margin-left: 2rem;"></div>
+
+</div>
+
 
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -81,7 +97,6 @@
         
           // Optional; add a title and set the width and height of the chart
           var options = {
-             'width':600, 'height':500,
               'title': "Total Register Product(by Comapany) vs Total Sold Product",
               is3D: true,
            };
@@ -91,8 +106,7 @@
           chart.draw(data, options);
         }
     </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -112,6 +126,26 @@
         chart.draw(data, options);
       }
   </script>
+
+<script type="text/javascript">
+  google.charts.load('current', {
+    'packages':['geochart'],
+  });
+  google.charts.setOnLoadCallback(drawRegionsMap);
+
+  function drawRegionsMap() {
+    var data = google.visualization.arrayToDataTable([
+      ['Country', 'Register'],
+      ['India',1000]
+    ]);
+
+    var options = {};
+
+    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+    chart.draw(data, options);
+  }
+</script>
     
 
 

@@ -1,3 +1,4 @@
+import re
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from .models import *
@@ -251,6 +252,10 @@ def signup(request):
             messages.success(request,"Account  Created")
         return redirect('/auth/')
 
+def signout(request):
+    auth.logout(request)
+    return redirect('/')
+
 def dashboard(request):
     allproduct = productDetail.objects.filter(manufacturer=request.user.companyName)
     sellproduct = sellRecord.objects.filter(manufacturer=request.user.companyName)
@@ -261,12 +266,61 @@ def dashboard(request):
     endCustomerCount = sellRecord.objects.filter(manufacturer=request.user.companyName,sellType=3).count()
     return render(request,'dashboard.html',{'allproduct':allproduct,'sellproduct':sellproduct,'sell':totalSellCount,'register':allproductCount,'distributerCount':distributerCount,'retailerCount':retailerCount,'endCustomerCount':endCustomerCount})
 
+def changeEmail(request):
+  check = False
+  complete = False
+  if request.method == 'POST':
+    if request.POST['ftype'] == "1":
+      password = request.POST['password']
+      if request.user.check_password(password):
+        check = True
+      else:
+        messages.error(request,"Password Not Matched.")
+    
+    elif request.POST['ftype'] == "2":
+      newemail = request.POST['newemail']
+      request.user.email = newemail
+      request.user.save(update_fields=('email', ))
+      request.user.save()
+      messages.success(request,"Password Updated.")
+    
+  return render(request,'emailchange.html',{'check':check,'complete':complete})
+
+def changePassword(request):
+  check = False
+  complete = False
+  if request.method == 'POST':
+    if request.POST['ftype'] == "1":
+      oldpass = request.POST['oldpass']
+      if request.user.check_password(oldpass):
+        check = True
+      else:
+        messages.error(request,"Old Password Not Matched.")
+    
+    elif request.POST['ftype'] == "2":
+      newpass = request.POST['newpass']
+      request.user.set_password(newpass)
+      request.user.save()
+      messages.success(request,"Password Updated.")
+    
+  return render(request,'passwordchange.html',{'check':check,'complete':complete})
+
+def forgetPassword(request):
+  pass
+
+def feedback(request):
+  if request.method == 'POST':
+    name = request.POST['name']
+    email = request.POST['email']
+    subject = request.POST['subject']
+    message = request.POST['message']
+    feedbacks(name=name,email=email,subject=subject,message=message).save()
+    messages.success(request,"Feedback  Sent")
+  return redirect('/')
+
 def blockchain(request):
     return render(request,'blockchain.html')
 
-def signout(request):
-    auth.logout(request)
-    return redirect('/')
 
 def handler404(request,exception):
     return render(request,'404_error.html')
