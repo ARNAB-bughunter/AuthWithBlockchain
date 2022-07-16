@@ -10,6 +10,7 @@ from django.contrib.auth.models import auth
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from collections import Counter
 
 
 def index(request):
@@ -164,11 +165,11 @@ def register(request):
         transactionsDetail(productID=pid,manufacturer=manufacturer,tx_hash=tx_hash).save()
         sendmail(tx_hash,link,request.POST['useremail'])
         if request.POST['ownership']=='Distributer':
-            sellRecord(productID=pid,productName=productName,manufacturer=manufacturer,link=link,sellType=1).save()
+            sellRecord(productID=pid,productName=productName,manufacturer=manufacturer,country=request.POST['country'],link=link,sellType=1).save()
         elif request.POST['ownership']=='Retailer':
-            sellRecord(productID=pid,productName=productName,manufacturer=manufacturer,link=link,sellType=2).save()
+            sellRecord(productID=pid,productName=productName,manufacturer=manufacturer,country=request.POST['country'],link=link,sellType=2).save()
         else:
-            sellRecord(productID=pid,productName=productName,manufacturer=manufacturer,link=link,sellType=3).save()
+            sellRecord(productID=pid,productName=productName,manufacturer=manufacturer,country=request.POST['country'],link=link,sellType=3).save()
         
         verification=True
         register=True
@@ -264,7 +265,22 @@ def dashboard(request):
     distributerCount = sellRecord.objects.filter(manufacturer=request.user.companyName,sellType=1).count()
     retailerCount = sellRecord.objects.filter(manufacturer=request.user.companyName,sellType=2).count()
     endCustomerCount = sellRecord.objects.filter(manufacturer=request.user.companyName,sellType=3).count()
-    return render(request,'dashboard.html',{'allproduct':allproduct,'sellproduct':sellproduct,'sell':totalSellCount,'register':allproductCount,'distributerCount':distributerCount,'retailerCount':retailerCount,'endCustomerCount':endCustomerCount})
+    countryCount = sellRecord.objects.filter(manufacturer=request.user.companyName,sellType=3)
+
+    tempx = []
+    for i in list(countryCount):
+        tempx.append(i.country)
+
+    countryList = Counter(tempx)
+    finalCountryCount = []
+    for i in countryList:
+        finalCountryCount.append([i,countryList[i]])
+
+    # print(finalCountryCount)
+
+
+
+    return render(request,'dashboard.html',{'allproduct':allproduct,'sellproduct':sellproduct,'sell':totalSellCount,'register':allproductCount,'distributerCount':distributerCount,'retailerCount':retailerCount,'endCustomerCount':endCustomerCount,'finalCountryCount':finalCountryCount})
 
 def changeEmail(request):
   check = False
@@ -282,7 +298,7 @@ def changeEmail(request):
       request.user.email = newemail
       request.user.save(update_fields=('email', ))
       request.user.save()
-      messages.success(request,"Password Updated.")
+      messages.success(request,"Email Updated.")
     
   return render(request,'emailchange.html',{'check':check,'complete':complete})
 

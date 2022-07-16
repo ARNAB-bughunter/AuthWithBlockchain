@@ -3,7 +3,7 @@
 
 <div class="d-flex align-items-center justify-content-center">
     <div class="shadow-lg p-3 mb-5 bg-body rounded" style="width:30rem;text-align:center;">
-        <h3 style="padding-bottom: 3rem;">Change Password</h3>
+        <h3 style="padding-bottom: 3rem;">Change Email</h3>
         <form action="" method="post" style="padding-left: 2rem;padding-right: 2rem;">
             {% csrf_token %}
             {% if check %}
@@ -11,7 +11,7 @@
                 <input class="form-control" type="email" placeholder="New Email" style="margin-bottom: 1rem;"
                     name="newemail">
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button style="margin-bottom: 1rem;" class="btn btn-primary" type="submit">Reset Password</button>
+                    <button style="margin-bottom: 1rem;" class="btn btn-primary" type="submit">Reset Email</button>
                 </div>
             {% else %}
                 <input name="ftype" value="1" type="hidden">

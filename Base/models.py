@@ -37,6 +37,7 @@ class sellRecord(models.Model):
     productID = models.CharField(max_length=100,null=False,blank=False)
     productName = models.TextField()
     manufacturer = models.TextField()
+    country = models.TextField()
     link = models.TextField()
     sellType = models.IntegerField()
     created = models.DateTimeField(auto_now=True)

@@ -10,8 +10,443 @@
 .my_row{
   margin-top: 2rem;
 }
-
 </style>
+<style type="text/css">
+        html,
+        body {
+          height: 100%;
+          position: relative;
+        }
+        .wrapper {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .clock {
+          perspective: 600px;
+          position: relative;
+          min-width: 780px;
+        }
+
+        .hours,
+        .minutes {
+          width: 260px;
+          position: relative;
+          float: left;
+        }
+        .hours:before, .hours:after,
+        .minutes:before,
+        .minutes:after {
+          content: "";
+          display: block;
+          width: 10px;
+          height: 10px;
+          background: #fff;
+          border-radius: 100%;
+          position: absolute;
+          -webkit-animation: pulse 1s infinite;
+                  animation: pulse 1s infinite;
+        }
+        .hours:before,
+        .minutes:before {
+          top: calc(50% - 10px);
+          right: 10px;
+        }
+        .hours:after,
+        .minutes:after {
+          top: calc(50% + 10px);
+          right: 10px;
+        }
+
+        .seconds {
+          width: 260px;
+          position: relative;
+          float: left;
+        }
+
+        .digit {
+          width: 110px;
+          height: 160px;
+          position: relative;
+          float: left;
+          padding: 0 5px;
+        }
+        .digit .card {
+          width: 110px;
+          height: 80px;
+          transition: 0.6s;
+          transform-style: preserve-3d;
+          position: relative;
+          transform-origin: 50% 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: all ease 1000ms;
+        }
+        .digit .card:nth-of-type(1) {
+          z-index: 10;
+        }
+        .digit .card:nth-of-type(2) {
+          z-index: 9;
+        }
+        .digit .card:nth-of-type(3) {
+          z-index: 8;
+        }
+        .digit .card:nth-of-type(4) {
+          z-index: 7;
+        }
+        .digit .card:nth-of-type(5) {
+          z-index: 6;
+        }
+        .digit .card:nth-of-type(6) {
+          z-index: 5;
+        }
+        .digit .card:nth-of-type(7) {
+          z-index: 4;
+        }
+        .digit .card:nth-of-type(8) {
+          z-index: 3;
+        }
+        .digit .card:nth-of-type(9) {
+          z-index: 2;
+        }
+        .digit .card:nth-of-type(10) {
+          z-index: 1;
+        }
+        .digit .face {
+          -webkit-backface-visibility: hidden;
+                  backface-visibility: hidden;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 110px;
+          height: 80px;
+          overflow: hidden;
+        }
+        .digit .face p {
+          -webkit-backface-visibility: hidden;
+                  backface-visibility: hidden;
+          color: #fff;
+          font-size: 180px;
+          font-weight: bold;
+          position: absolute;
+          line-height: 200px;
+          padding: 0 10px;
+          margin: 0;
+          left: 0;
+          text-shadow: 0 0 5px #424242;
+        }
+        .digit .front {
+          background: linear-gradient(0deg, #323232 40%, #424242);
+          border-radius: 6px 6px 0 0;
+          z-index: 2;
+          transform: rotateX(0deg);
+        }
+        .digit .front p {
+          top: -15px;
+        }
+        .digit .front:after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0) 98%, rgba(0, 0, 0, 0.3));
+        }
+        .digit .back {
+          background: linear-gradient(-170deg, #323232 55%, #212121);
+          border-radius: 0 0 6px 6px;
+          transform: rotateX(180deg);
+        }
+        .digit .back p {
+          top: -95px;
+        }
+        .digit .back:after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(7deg, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.15));
+        }
+        .digit.zero .card-0 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.one .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.one .card-1 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.two .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.two .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.two .card-2 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.three .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.three .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.three .card-2 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.three .card-3 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.four .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.four .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.four .card-2 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.four .card-3 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.four .card-4 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.five .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.five .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.five .card-2 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.five .card-3 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.five .card-4 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.five .card-5 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.six .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.six .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.six .card-2 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.six .card-3 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.six .card-4 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.six .card-5 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.six .card-6 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.seven .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.seven .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.seven .card-2 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.seven .card-3 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.seven .card-4 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.seven .card-5 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.seven .card-6 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.seven .card-7 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.eight .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-2 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-3 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-4 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-5 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-6 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-7 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.eight .card-8 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+        .digit.nine .card-0 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-1 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-2 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-3 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-4 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-5 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-6 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-7 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-8 {
+          transform: rotateX(-180deg);
+          z-index: -1;
+        }
+        .digit.nine .card-9 {
+          transform: rotateX(-180deg);
+          z-index: 10;
+        }
+
+        @-webkit-keyframes pulse {
+          0%, 100% {
+            background: rgba(255, 255, 255, 0.3);
+          }
+          50% {
+            background: rgba(255, 255, 255, 0.1);
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            background: rgba(255, 255, 255, 0.3);
+          }
+          50% {
+            background: rgba(255, 255, 255, 0.1);
+          }
+        }
+        @media screen and (max-width: 800px) {
+          .clock {
+            min-width: 400px;
+          }
+
+          .hours,
+        .minutes,
+        .seconds {
+            width: 200px;
+          }
+
+          .digit {
+            width: 80px;
+            height: 130px;
+          }
+          .digit .card {
+            width: 80px;
+            height: 65px;
+          }
+          .digit .card .face {
+            width: 80px;
+            height: 65px;
+          }
+          .digit .card .face p {
+            font-size: 160px;
+            padding: 0;
+          }
+          .digit .card .front p {
+            top: -30px;
+          }
+        }
+</style>
+
 
 <div style="padding: 3rem" class="my_row row shadow-lg p-3 mb-5 bg-body rounded">
     <h5 style="padding: 2rem;font-family:'Verdana';">Some analytical</h5>
@@ -49,7 +484,8 @@
   <thead>
     <tr>
       <th style="padding: 1rem;" scope="col">Product ID</th>
-      <th style="padding: 1rem;" scope="col">Product NAme</th>
+      <th style="padding: 1rem;" scope="col">Product Name</th>
+      <th style="padding: 1rem;" scope="col">Country</th>
       <th style="padding: 1rem;" scope="col">Product Status</th>
       <th style="padding: 1rem;" scope="col">Link</th>
     </tr>
@@ -59,6 +495,8 @@
     <tr>
         <td style="padding: 1rem;">{{ product.productID }}</td>
         <td style="padding: 1rem;">{{ product.productName }}</td>
+        <td style="padding: 1rem;">{{ product.country }}</td>
+
         <td style="padding: 1rem;">
             {% if product.sellType == 1 %}
                 Distributer
@@ -78,7 +516,562 @@
 <div style="padding: 3rem" class="my_row row ">
 
   <div class="col shadow-lg p-3 mb-5 bg-body rounded" id="regions_div" style="height:500px;padding: 1rem;gap: 1rem;border: 1px solid black;margin-right: 2rem;"></div>
-  <div class="col shadow-lg p-3 mb-5 bg-body rounded"  style="height:500px;padding: 1rem;border: 1px solid black;margin-left: 2rem;"></div>
+  <div class="col shadow-lg p-3 mb-5 bg-body rounded"  style="height:500px;padding: 1rem;border: 1px solid black;margin-left: 2rem;">
+    <h2 style="padding: 10px;font-family:'Verdana';">Clock</h2>
+    <div class="wrapper">
+      <div class="clock">
+          <div class="hours">
+              <div class="digit zero">
+                  <div class="card card-0">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+                  <div class="card card-1">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>1</p>
+                      </div>
+                  </div>
+                  <div class="card card-2">
+                      <div class="face front">
+                          <p>1</p>
+                      </div>
+                      <div class="face back">
+                          <p>2</p>
+                      </div>
+                  </div>
+                  <div class="card card-3">
+                      <div class="face front">
+                          <p>2</p>
+                      </div>
+                      <div class="face back">
+                          <p>3</p>
+                      </div>
+                  </div>
+                  <div class="card card-4">
+                      <div class="face front">
+                          <p>3</p>
+                      </div>
+                      <div class="face back">
+                          <p>4</p>
+                      </div>
+                  </div>
+                  <div class="card card-5">
+                      <div class="face front">
+                          <p>4</p>
+                      </div>
+                      <div class="face back">
+                          <p>5</p>
+                      </div>
+                  </div>
+                  <div class="card card-6">
+                      <div class="face front">
+                          <p>5</p>
+                      </div>
+                      <div class="face back">
+                          <p>6</p>
+                      </div>
+                  </div>
+                  <div class="card card-7">
+                      <div class="face front">
+                          <p>6</p>
+                      </div>
+                      <div class="face back">
+                          <p>7</p>
+                      </div>
+                  </div>
+                  <div class="card card-8">
+                      <div class="face front">
+                          <p>7</p>
+                      </div>
+                      <div class="face back">
+                          <p>8</p>
+                      </div>
+                  </div>
+                  <div class="card card-9">
+                      <div class="face front">
+                          <p>8</p>
+                      </div>
+                      <div class="face back">
+                          <p>9</p>
+                      </div>
+                  </div>
+                  <div class="card card-10">
+                      <div class="face front">
+                          <p>9</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="digit zero">
+                  <div class="card card-0">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+                  <div class="card card-1">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>1</p>
+                      </div>
+                  </div>
+                  <div class="card card-2">
+                      <div class="face front">
+                          <p>1</p>
+                      </div>
+                      <div class="face back">
+                          <p>2</p>
+                      </div>
+                  </div>
+                  <div class="card card-3">
+                      <div class="face front">
+                          <p>2</p>
+                      </div>
+                      <div class="face back">
+                          <p>3</p>
+                      </div>
+                  </div>
+                  <div class="card card-4">
+                      <div class="face front">
+                          <p>3</p>
+                      </div>
+                      <div class="face back">
+                          <p>4</p>
+                      </div>
+                  </div>
+                  <div class="card card-5">
+                      <div class="face front">
+                          <p>4</p>
+                      </div>
+                      <div class="face back">
+                          <p>5</p>
+                      </div>
+                  </div>
+                  <div class="card card-6">
+                      <div class="face front">
+                          <p>5</p>
+                      </div>
+                      <div class="face back">
+                          <p>6</p>
+                      </div>
+                  </div>
+                  <div class="card card-7">
+                      <div class="face front">
+                          <p>6</p>
+                      </div>
+                      <div class="face back">
+                          <p>7</p>
+                      </div>
+                  </div>
+                  <div class="card card-8">
+                      <div class="face front">
+                          <p>7</p>
+                      </div>
+                      <div class="face back">
+                          <p>8</p>
+                      </div>
+                  </div>
+                  <div class="card card-9">
+                      <div class="face front">
+                          <p>8</p>
+                      </div>
+                      <div class="face back">
+                          <p>9</p>
+                      </div>
+                  </div>
+                  <div class="card card-10">
+                      <div class="face front">
+                          <p>9</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="minutes">
+              <div class="digit zero">
+                  <div class="card card-0">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+                  <div class="card card-1">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>1</p>
+                      </div>
+                  </div>
+                  <div class="card card-2">
+                      <div class="face front">
+                          <p>1</p>
+                      </div>
+                      <div class="face back">
+                          <p>2</p>
+                      </div>
+                  </div>
+                  <div class="card card-3">
+                      <div class="face front">
+                          <p>2</p>
+                      </div>
+                      <div class="face back">
+                          <p>3</p>
+                      </div>
+                  </div>
+                  <div class="card card-4">
+                      <div class="face front">
+                          <p>3</p>
+                      </div>
+                      <div class="face back">
+                          <p>4</p>
+                      </div>
+                  </div>
+                  <div class="card card-5">
+                      <div class="face front">
+                          <p>4</p>
+                      </div>
+                      <div class="face back">
+                          <p>5</p>
+                      </div>
+                  </div>
+                  <div class="card card-6">
+                      <div class="face front">
+                          <p>5</p>
+                      </div>
+                      <div class="face back">
+                          <p>6</p>
+                      </div>
+                  </div>
+                  <div class="card card-7">
+                      <div class="face front">
+                          <p>6</p>
+                      </div>
+                      <div class="face back">
+                          <p>7</p>
+                      </div>
+                  </div>
+                  <div class="card card-8">
+                      <div class="face front">
+                          <p>7</p>
+                      </div>
+                      <div class="face back">
+                          <p>8</p>
+                      </div>
+                  </div>
+                  <div class="card card-9">
+                      <div class="face front">
+                          <p>8</p>
+                      </div>
+                      <div class="face back">
+                          <p>9</p>
+                      </div>
+                  </div>
+                  <div class="card card-10">
+                      <div class="face front">
+                          <p>9</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="digit zero">
+                  <div class="card card-0">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+                  <div class="card card-1">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>1</p>
+                      </div>
+                  </div>
+                  <div class="card card-2">
+                      <div class="face front">
+                          <p>1</p>
+                      </div>
+                      <div class="face back">
+                          <p>2</p>
+                      </div>
+                  </div>
+                  <div class="card card-3">
+                      <div class="face front">
+                          <p>2</p>
+                      </div>
+                      <div class="face back">
+                          <p>3</p>
+                      </div>
+                  </div>
+                  <div class="card card-4">
+                      <div class="face front">
+                          <p>3</p>
+                      </div>
+                      <div class="face back">
+                          <p>4</p>
+                      </div>
+                  </div>
+                  <div class="card card-5">
+                      <div class="face front">
+                          <p>4</p>
+                      </div>
+                      <div class="face back">
+                          <p>5</p>
+                      </div>
+                  </div>
+                  <div class="card card-6">
+                      <div class="face front">
+                          <p>5</p>
+                      </div>
+                      <div class="face back">
+                          <p>6</p>
+                      </div>
+                  </div>
+                  <div class="card card-7">
+                      <div class="face front">
+                          <p>6</p>
+                      </div>
+                      <div class="face back">
+                          <p>7</p>
+                      </div>
+                  </div>
+                  <div class="card card-8">
+                      <div class="face front">
+                          <p>7</p>
+                      </div>
+                      <div class="face back">
+                          <p>8</p>
+                      </div>
+                  </div>
+                  <div class="card card-9">
+                      <div class="face front">
+                          <p>8</p>
+                      </div>
+                      <div class="face back">
+                          <p>9</p>
+                      </div>
+                  </div>
+                  <div class="card card-10">
+                      <div class="face front">
+                          <p>9</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="seconds">
+              <div class="digit zero">
+                  <div class="card card-0">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+                  <div class="card card-1">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>1</p>
+                      </div>
+                  </div>
+                  <div class="card card-2">
+                      <div class="face front">
+                          <p>1</p>
+                      </div>
+                      <div class="face back">
+                          <p>2</p>
+                      </div>
+                  </div>
+                  <div class="card card-3">
+                      <div class="face front">
+                          <p>2</p>
+                      </div>
+                      <div class="face back">
+                          <p>3</p>
+                      </div>
+                  </div>
+                  <div class="card card-4">
+                      <div class="face front">
+                          <p>3</p>
+                      </div>
+                      <div class="face back">
+                          <p>4</p>
+                      </div>
+                  </div>
+                  <div class="card card-5">
+                      <div class="face front">
+                          <p>4</p>
+                      </div>
+                      <div class="face back">
+                          <p>5</p>
+                      </div>
+                  </div>
+                  <div class="card card-6">
+                      <div class="face front">
+                          <p>5</p>
+                      </div>
+                      <div class="face back">
+                          <p>6</p>
+                      </div>
+                  </div>
+                  <div class="card card-7">
+                      <div class="face front">
+                          <p>6</p>
+                      </div>
+                      <div class="face back">
+                          <p>7</p>
+                      </div>
+                  </div>
+                  <div class="card card-8">
+                      <div class="face front">
+                          <p>7</p>
+                      </div>
+                      <div class="face back">
+                          <p>8</p>
+                      </div>
+                  </div>
+                  <div class="card card-9">
+                      <div class="face front">
+                          <p>8</p>
+                      </div>
+                      <div class="face back">
+                          <p>9</p>
+                      </div>
+                  </div>
+                  <div class="card card-10">
+                      <div class="face front">
+                          <p>9</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="digit zero">
+                  <div class="card card-0">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+                  <div class="card card-1">
+                      <div class="face front">
+                          <p>0</p>
+                      </div>
+                      <div class="face back">
+                          <p>1</p>
+                      </div>
+                  </div>
+                  <div class="card card-2">
+                      <div class="face front">
+                          <p>1</p>
+                      </div>
+                      <div class="face back">
+                          <p>2</p>
+                      </div>
+                  </div>
+                  <div class="card card-3">
+                      <div class="face front">
+                          <p>2</p>
+                      </div>
+                      <div class="face back">
+                          <p>3</p>
+                      </div>
+                  </div>
+                  <div class="card card-4">
+                      <div class="face front">
+                          <p>3</p>
+                      </div>
+                      <div class="face back">
+                          <p>4</p>
+                      </div>
+                  </div>
+                  <div class="card card-5">
+                      <div class="face front">
+                          <p>4</p>
+                      </div>
+                      <div class="face back">
+                          <p>5</p>
+                      </div>
+                  </div>
+                  <div class="card card-6">
+                      <div class="face front">
+                          <p>5</p>
+                      </div>
+                      <div class="face back">
+                          <p>6</p>
+                      </div>
+                  </div>
+                  <div class="card card-7">
+                      <div class="face front">
+                          <p>6</p>
+                      </div>
+                      <div class="face back">
+                          <p>7</p>
+                      </div>
+                  </div>
+                  <div class="card card-8">
+                      <div class="face front">
+                          <p>7</p>
+                      </div>
+                      <div class="face back">
+                          <p>8</p>
+                      </div>
+                  </div>
+                  <div class="card card-9">
+                      <div class="face front">
+                          <p>8</p>
+                      </div>
+                      <div class="face back">
+                          <p>9</p>
+                      </div>
+                  </div>
+                  <div class="card card-10">
+                      <div class="face front">
+                          <p>9</p>
+                      </div>
+                      <div class="face back">
+                          <p>0</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  </div>
 
 </div>
 
@@ -128,6 +1121,8 @@
   </script>
 
 <script type="text/javascript">
+
+
   google.charts.load('current', {
     'packages':['geochart'],
   });
@@ -136,7 +1131,9 @@
   function drawRegionsMap() {
     var data = google.visualization.arrayToDataTable([
       ['Country', 'Register'],
-      ['India',1000]
+      {% for i,j in finalCountryCount  %}
+      ['{{ i }}','{{ j }}'],
+      {% endfor %}
     ]);
 
     var options = {};
@@ -147,7 +1144,68 @@
   }
 </script>
     
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+  <script>
+          var currentDate,
+          currentHours,
+          currentMinutes,
+          currentSeconds,
+          hours = [],
+          minutes = [],
+          seconds = [],
+          map = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 
+        function updateDate() {
+          currentDate = new Date();
+          currentHours = currentDate.getHours();
+          if (currentHours < 10) {
+            currentHours = '0' + currentHours;
+          }
+          currentMinutes = currentDate.getMinutes();
+          if (currentMinutes < 10) {
+            currentMinutes = '0' + currentMinutes;
+          }
+          currentSeconds = currentDate.getSeconds();
+          if (currentSeconds < 10) {
+            currentSeconds = '0' + currentSeconds;
+          }
+        }
+
+        function splitDigits(stringVal, array) {
+          var tempString = stringVal.toString();
+          array.length = 0
+          for (var i = 0; i < tempString.length; i++) {
+            array.push(+tempString.charAt(i));
+          }
+        }
+
+        function printClass(value, elem) {
+          elem.attr('class', 'digit')
+            .addClass(map[value]);
+        }
+
+        $('body').click(function() {
+          $('.digit').toggleClass('eight');
+          $('.digit').toggleClass('nine');
+        });
+
+        $(document).ready(function() {
+          setInterval(function() {
+            updateDate();
+            splitDigits(currentSeconds, seconds);
+            splitDigits(currentMinutes, minutes);
+            splitDigits(currentHours, hours);
+
+            printClass(hours[0], $('.hours .digit:first-of-type'));
+            printClass(hours[1], $('.hours .digit:last-of-type'));
+            printClass(minutes[0], $('.minutes .digit:first-of-type'));
+            printClass(minutes[1], $('.minutes .digit:last-of-type'));
+            printClass(seconds[0], $('.seconds .digit:first-of-type'));
+            printClass(seconds[1], $('.seconds .digit:last-of-type'));
+          }, 1000);
+        });
+
+  </script>
 
 {% include "footer.html" %}
 
