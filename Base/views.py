@@ -276,10 +276,7 @@ def dashboard(request):
     for i in countryList:
         finalCountryCount.append([i,countryList[i]])
 
-    # print(finalCountryCount)
-
-
-
+    
     return render(request,'dashboard.html',{'allproduct':allproduct,'sellproduct':sellproduct,'sell':totalSellCount,'register':allproductCount,'distributerCount':distributerCount,'retailerCount':retailerCount,'endCustomerCount':endCustomerCount,'finalCountryCount':finalCountryCount})
 
 def changeEmail(request):
